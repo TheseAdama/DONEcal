@@ -1,0 +1,52 @@
+# Calculez f sur la grille XX
+Z_true <- matrix(apply(XX, 1, function(u) fcode(u, theta = c(2,3))), 
+                 nrow = 100, byrow = FALSE)
+
+par(mfrow = c(1,1), mar = c(4,4,2,1))
+image(seq(-2,2,len=100), seq(-2,2,len=100), Z_true,
+      col = viridis(100), xlab = "x1", ylab = "x2",
+      main = "Surface f(x; θ⁰) — carte de niveaux")
+contour(seq(-2,2,len=100), seq(-2,2,len=100), Z_true,
+        levels = pretty(range(Z_true), 15), add = TRUE, lwd = 0.5)
+points(Xobs, pch = 19, col = "red")  # observations
+legend("topright", legend = "X_obs", pch = 19, col = "white", bty="n")
+
+
+library(GGally)
+library(viridis)
+
+# Exemple 
+set.seed(123)
+n <- 50
+data <- data.frame(
+  x1     = rnorm(n),
+  x2     = rnorm(n),
+  theta1 = runif(n, 0, 5),
+  theta2 = runif(n, 0, 5)
+)
+labels_latex <- c(
+  expression(x[1]),
+  expression(x[2]),
+  expression(theta[1]),
+  expression(theta[2])
+)
+colnames(data) <- labels_latex
+pairs(data,
+      labels = labels_latex,
+      main = "Matrice de nuages de points",
+      pch  = 21,
+      cex  = 0.5,
+      lwd=2,bg ="red",
+      col  = "blue")
+
+
+ggpairs(data,
+        title = "Scatterplot Matrix avec GGally",
+        columns = 1:4,
+        mapping = aes(colour = theta1, alpha = 0.6),
+        upper = list(continuous = wrap("points", size = 1.5)),
+        lower = list(continuous = wrap("points", size = 1.5)),
+        diag  = list(continuous = wrap("densityDiag")),
+        legend = c(1, 1)) +
+  scale_color_viridis(option = "D") +
+  theme_minimal(base_size = 12)

@@ -1,0 +1,14 @@
+x1 <- seq(0, 1, length.out = 100)
+x2 <- seq(0, 1, length.out = 100)
+grid <- expand.grid(x1 = x1, x2 = x2)
+
+# Calcul de theta(x)
+theta <- with(grid, 1 + 2 * sin(2 * pi * x1) - cos(2 * pi * x2))
+
+# Calcul de f(x)
+f <- exp(-theta^2) * sin(2 * pi * grid$x1 * grid$x2)
+
+# Visualisation
+z <- matrix(f, nrow = 100)
+persp(x1, x2, z, theta = 30, phi = 30, col = viridis(120),
+      xlab = "x1", ylab = "x2", zlab = "f(x)", main = "f(x) = exp(-θ(x)^2) * sin(2π x1 x2)")

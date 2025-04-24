@@ -1,0 +1,58 @@
+KLdone <- function(M, code, model, Xobs, Yobs, Dx, Dtheta, sigeps, 
+                   ctype="VAR", rprior, dprior, Lmc=1000, Lopt=1e4){
+  
+  D = model@X
+  fD = model@y
+  
+  # MCMC and first posterior mean
+  Chain = MetropInGibbs(logfd=function(theta){Logpost(theta,Yobs, Xobs, model, sigeps, Dtheta)}, 
+                         maxiter=1e4, xinit=rowMeans(Dtheta), sig=0.25, Domaine=Dtheta)
+
+  theta1 = matrix(colMeans(Chain), nrow=1)
+  m1 = ESSk(theta1, model, Xobs, Yobs, sigeps, L=Lmc)
+  x1 = CCx(theta1, model, Xobs, Dtheta, type=ctype)
+  
+  Dnew = cbind(x1, theta1)
+  fDnew = code(x1, theta1)
+  model <- update(model, newX=Dnew, newy=fDnew, cov.reestim = TRUE, 
+                  trend.reestim = TRUE, nugget.reestim = FALSE)
+  
+  k <- 2
+  SSvec <- c(m1) 
+  D = rbind(D, Dnew)
+  fD <- rbind(fD, fDnew)
+  thetak <- tt <- theta1
+  mk <- m1
+  
+  while (k<=M){
+    thetak = optimf(fn=function(t){EIk(t, mk, Xobs, Yobs, model, Lmc=Lmc)}, Domain=Dtheta, L=Lopt, tomax=TRUE)
+    thetak = matrix(thetak, nrow=1)
+    
+    xk = CCx(thetak, model, Xobs, Dtheta, type=ctype)
+    xk = matrix(xk, nrow=1)
+
+    Dnew = cbind(xk, thetak)
+    fDnew = code(xk, thetak)
+    model <- update(model, newX = Dnew, newy = fDnew, cov.reestim = TRUE, 
+                    trend.reestim = TRUE, nugget.reestim = TRUE)
+    
+    D = rbind(D, Dnew)
+    fD = rbind(fD, fDnew)
+    
+    tt <- rbind(tt, thetak) 
+    SSk <- apply(tt, 1, function(t){ESSk(t, model, Xobs, Yobs, sigeps, L=1e3)})
+    mk <- min(SSk)
+    
+    rate <- (k/M)*100
+    cat(sprintf("Progression : %.2f%%\r", rate))
+    flush.console()
+    k <- k+1
+  }
+
+  Chain <- MetropInGibbs(logfd=function(theta){Logpost(theta, Yobs, Xobs, model, sigeps, Dtheta)}, 
+                         maxiter=1e4, xinit=rowMeans(Dtheta), sig=0.25, Domaine=Dtheta)
+  
+  thetamap = colMeans(Chain)
+  
+  return(list(D = D, fD=fD, model = model, chain = Chain, thetamap = thetamap))
+}

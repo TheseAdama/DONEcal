@@ -1,0 +1,75 @@
+---
+title: "Calibration fonctionnelle"
+author: " "
+date: "11/04/2025"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+Dans ce tutoriel, nous estimons les paramÃ¨tres fonctionnelles d'un code de calcul couteux
+
+$$
+y_{real}(x) = 
+$$
+La fonction de test qui joue le role du code de calcul : 
+$$
+f_{code}(\theta(x),x) = 
+$$
+
+$$
+yobs(x) = y_{real}(x) + \varepsilon, \varepsilon \sim \mathcal{N}(0,\sigma_{\varepsilon}^{2})
+$$
+
+```{r}
+library(latex2exp)
+library(viridis)
+
+```
+
+```{r}
+theta <- function(x1, x2) { 
+  mu1 = 0.5
+  mu2 = 0.5
+  sigma1 = 0.25
+  sigma2 = 0.25
+  r=((x1 - mu1)^2 / (2 * sigma1^2) + (x2 - mu2)^2 / (2 * sigma2^2))
+  return(r)
+}
+```
+
+
+```{r}
+Yreal <- function(x1, x2) {
+  aa = theta(x1,x2)
+  r=exp(-aa)*cos(2*pi*x2)*sin(2*pi*x1)
+  return(r)
+}
+
+```
+
+```{r}
+  
+xx <- seq(0, 1, length.out = 100)
+yy <- seq(0, 1, length.out = 100)
+
+tt <- t(apply(array(xx), 1, function(x1){apply(array(yy),1, function(x2){theta(x1,x2)})}))
+
+ff <- t(apply(array(xx),1,function(x1){apply(array(yy),1,function(x2){Yreal(x1,x2)})}))
+
+```
+```{r}
+par(mfrow=c(1,2))
+image(xx, yy, tt, col = viridis(100), xlab = expression(x[1]), ylab = expression(x[2]),
+      main = "Parametre fonctionnel",cex=1.25, lwd=2)
+image(xx, yy, ff, col = viridis(100), xlab = expression(x[1]), ylab = expression(x[2]),
+      main = "Phenomene physique reel",cex=1.25, lwd=2)
+
+```
+

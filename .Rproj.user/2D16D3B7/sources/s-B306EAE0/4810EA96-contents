@@ -1,0 +1,24 @@
+
+Logpost <- function(theta, Yobs, Xobs, model, sigY, type_prior, param_prior, Dth){
+  
+  Ypred <- predict(model, newdata = data.frame(x = Dbind(Xobs,theta)),
+                   cov.compute=TRUE , type = "SK", checkNames = FALSE)
+  dd = Yobs - Ypred$mean
+  V = Ypred$cov + diag(sigY, nrow(Xobs))
+  pp = dprior(theta)
+  R = -0.5*length(dd)*log(2*pi) - 0.5*log(det(V)) - 0.5*t(D)%*%solve(V)%*%dd + log(pp)
+  
+  return(R)
+}
+
+
+DONE <- function(Xobs, Yobs, code,model, Dx, Dtheta, sigeps,type, dprior, 
+                 rprior, L,covtype="matern5_2", )
+  
+  if(is.matrix(Xobs)){stop("Xobs must be a matrix ! ")}
+  if(is.vector(Yobs)){stop("Yobs must be a vector ! ")}
+  # Modele Initial
+  D = model@X
+  fD = model@y
+
+  

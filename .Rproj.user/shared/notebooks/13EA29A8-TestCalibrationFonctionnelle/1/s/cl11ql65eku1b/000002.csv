@@ -1,0 +1,10 @@
+"0","par(mfrow=c(1,2))"
+"2","Warning message:
+"
+"2","In readLines(con, warn = FALSE) :"
+"2","
+ "
+"2"," invalid input found on input connection 'TestCalibrationFonctionnelle.Rmd'
+"
+"0","image(xx, yy, tt, col = viridis(100), xlab = expression(x[1]), ylab = expression(x[2]),"
+"0","      main = ""Paramètre fonctionnel"",cex=1.25, lwd=2)"

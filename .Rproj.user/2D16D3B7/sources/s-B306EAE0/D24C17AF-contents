@@ -1,0 +1,62 @@
+PHI <- function(x, K, typebase = "polynomial") {
+  n <- length(x)
+  M <- matrix(0, n, K)
+  if (typebase == "polynomial") {
+    for (k in 1:K) {
+      M[, k] <- x^(k - 1)
+    }
+    } 
+  if (typebase == "Fourier") {
+    M[, 1] <- 1 / sqrt(2*pi)  
+    if (K > 1) {
+      for (j in 1:floor((K - 1)/2)) {
+        idx_cos <- 2 * j     
+        idx_sin <- idx_cos + 1 
+        M[, idx_cos] <- cos(j * x)
+        if (idx_sin <= K)
+          M[, idx_sin] <- sin(j * x)
+      }
+    }
+    
+  } 
+  
+  return(M)
+}
+
+# Calcul des coefficients de la représentation
+Calculcoef <- function(x, FF, K, typebase = "polynomial") {
+  M <- PHI(x, K, typebase)
+  coef <- solve(t(M) %*% M) %*% t(M) %*% FF
+  return(coef)
+}
+# Approx
+fhat <- function(x, coef, K, typebase = "polynomial") {
+  M <- PHI(x, K, typebase)
+  o <- M %*% coef
+  return(o)
+}
+
+# Exemple 
+set.seed(123)
+n <- 100
+xx = seq(-3,3, len=1000)
+FF <- (xx+1)*cos(pi*xx)
+K <- 6
+MF = mean(FF)
+FF = FF - MF
+# Calcul des coefficients
+cp <- Calculcoef(xx, FF, K, typebase = "polynomial")
+cat("Coefficients pour la base polynomiale:\n")
+print(cp)
+
+cf <- Calculcoef(xx, FF, K, typebase = "Fourier")
+cat("Coefficients pour la base de Fourier:\n")
+print(cf)
+
+tt1 = MF+fhat(xx, cp, K, typebase = "polynomial")
+tt2 = MF+ fhat(xx, cf, K, typebase = "Fourier")
+
+plot(xx, tt, col='blue', type='l', lwd=2)
+lines(xx, tt1, col='red', lwd=2, lty=2)
+lines(xx, tt2, col='green', lwd=2, lty=2)
+

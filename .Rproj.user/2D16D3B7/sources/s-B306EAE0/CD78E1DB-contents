@@ -1,0 +1,14 @@
+ff <- function(x){
+  theta = (xx+1)*cos(pi*xx) #sin(3*x)**2
+  o = exp(-theta-x**2)
+  return(o)
+}
+
+Dx = matrix(c(-3,3), ncol=2)
+xx = seq(-3,3, len=1000)
+yy = ff(xx)
+
+plot(xx, yy, col='red', type='l')
+
+tt = (xx+1)*cos(pi*xx) #sin(3*xx)**2
+plot(xx, tt, col='red', type='l')

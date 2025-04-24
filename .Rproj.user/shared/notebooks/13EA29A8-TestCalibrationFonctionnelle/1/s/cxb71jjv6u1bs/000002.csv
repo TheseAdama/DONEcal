@@ -1,0 +1,26 @@
+"0","Yreal <- function(x1, x2) {"
+"2","Warning messages:
+"
+"2","1: "
+"2","In readLines(con, warn = FALSE) :"
+"2","
+ "
+"2"," invalid input found on input connection 'TestCalibrationFonctionnelle.Rmd'
+"
+"2","2: "
+"2","In readLines(con, warn = FALSE) :"
+"2","
+ "
+"2"," invalid input found on input connection 'TestCalibrationFonctionnelle.Rmd'
+"
+"2","3: "
+"2","In readLines(con, warn = FALSE) :"
+"2","
+ "
+"2"," invalid input found on input connection 'TestCalibrationFonctionnelle.Rmd'
+"
+"0","  aa = theta(x1,x2)"
+"0","  r=exp(-aa)*cos(2*pi*x2)*sin(2*pi*x1)"
+"0","  return(r)"
+"0","}"
+"0",""

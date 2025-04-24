@@ -1,0 +1,30 @@
+---
+title: "Calibration fonctionnelle"
+author: " "
+date: "11/04/2025"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+Dans ce tutoriel, nous estimons les paramètres fonctionnelles d'un code de calcul couteux
+
+$$
+y_{real}(x) = 
+$$
+La fonction de test qui joue le role du code de calcul : 
+$$
+f_{code}(\theta(x),x) = 
+$$
+
+$$
+yobs(x) = y_{real}(x) + \varepsilon, \varepsilon \sim \mathcal{N}(0,\sigma_{\varepsilon}^{2})
+$$
+
+

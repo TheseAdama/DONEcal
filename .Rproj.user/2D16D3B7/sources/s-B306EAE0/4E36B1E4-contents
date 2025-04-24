@@ -1,0 +1,36 @@
+# 1) Installer / charger MASS si besoin
+if (!requireNamespace("MASS", quietly = TRUE)) {
+  install.packages("MASS")
+}
+
+library(MASS)
+
+# 2) Simuler quelques données bidimensionnelles
+set.seed(123)
+n <- 300
+x1 <- rnorm(n, mean = 0, sd = 1)
+x2 <- 0.5 * x1 + rnorm(n, sd = 0.8)
+
+# 3) Estimation de la densité 2D avec kde2d()
+#    on définit une grille de 100×100 points couvrant la donnée
+kde <- kde2d(x1, x2, n = 100,
+             lims = c(range(x1), range(x2)))
+
+# 4) Affichage : heatmap + contours + points
+# 4a) Heatmap
+par(mfrow=c(1,1))
+image(kde,
+      col  = viridis(20),
+      xlab = expression(x[1]),
+      ylab = expression(x[2]),
+      main = "Estimation de densité 2D (kde2d)")
+
+# 4b) Contours
+contour(kde,
+        add    = TRUE,
+        drawlabels = FALSE,
+        nlevels   = 15,
+        lwd       = 1)
+
+# 4c) Nuage de points
+points(x1, x2, pch = 16, cex = 0.6, col = rgb(0,0,0,0.3))

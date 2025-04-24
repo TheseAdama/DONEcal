@@ -1,0 +1,8 @@
+"0","  "
+"0","xx <- seq(0, 1, length.out = 100)"
+"0","yy <- seq(0, 1, length.out = 100)"
+"0",""
+"0","tt <- t(apply(array(xx), 1, function(x1){apply(array(yy),1, function(x2){theta(x1,x2)})}))"
+"0",""
+"0","ff <- t(apply(array(xx),1,function(x1){apply(array(yy),1,function(x2){Yreal(x1,x2)})}))"
+"0",""

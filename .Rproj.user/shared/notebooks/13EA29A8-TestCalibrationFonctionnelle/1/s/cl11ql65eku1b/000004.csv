@@ -1,0 +1,3 @@
+"0","image(xx, yy, ff, col = viridis(100), xlab = expression(x[1]), ylab = expression(x[2]),"
+"0","      main = ""Phenomene physique réel"",cex=1.25, lwd=2)"
+"0",""

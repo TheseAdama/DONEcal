@@ -69,7 +69,7 @@ rprior <- function(N, Dtheta){
   return(o)
 }
 
-# Vraie densité a posteriori
+# Vraie densitÃ© a posteriori
 logp <- function(theta,Yobs, Xobs, code=fcode, sigeps, Dtheta){
   if(all(theta >= Dtheta[, 1] & theta <= Dtheta[, 2])){
     n = nrow(Xobs)
@@ -102,7 +102,7 @@ plot(TruePDF$x,TruePDF$y, col='blue', lwd=2, type='l', main='KL',
 lines(ApproxPDF$x, ApproxPDF$y, col='red', lwd=2, lty=2)
 abline(v=12, col='black', lwd=2, lty=3)
 legend("topleft",
-       legend = c("Vraie densité", "Approximation", "Vraie valeur"),
+       legend = c("Vraie densitÃ©", "Approximation", "Vraie valeur"),
        col    = c("blue", "red","black"),
        lty    = c(1,2, 3),
        lwd    = c(2,2,2),
@@ -110,7 +110,7 @@ legend("topleft",
 dev.off()
 
 # SSW
-R =  SSWdone(M=50, code=fcode, model, Xobs, Yobs, Dx, Dtheta, sigeps, ctype="VAR",
+R =  SSWdone(M=20, code=fcode, model, Xobs, Yobs, Dx, Dtheta, sigeps, ctype="VAR",
              rprior, dprior, Lopt=100, Lmcmc = 1e4)
 
 ApproxPDF = density(R$chain, from=5, to=15, bw=0.5)
@@ -121,7 +121,7 @@ plot(TruePDF$x,TruePDF$y, col='blue', lwd=2, type='l', main='SSW',
 lines(ApproxPDF$x, ApproxPDF$y, col='red', lwd=2, lty=2)
 abline(v=12, col='black', lwd=2, lty=3)
 legend("topleft",
-       legend = c("Vraie densité", "Approximation", "Vraie valeur"),
+       legend = c("Vraie densitÃ©", "Approximation", "Vraie valeur"),
        col    = c("blue", "red","black"),
        lty    = c(1,2, 3),
        lwd    = c(2,2,2),
@@ -140,7 +140,7 @@ plot(TruePDF$x,TruePDF$y, col='blue', lwd=2, type='l', main='ENT',
 lines(ApproxPDF$x, ApproxPDF$y, col='red', lwd=2, lty=2)
 abline(v=12, col='black', lwd=2, lty=3)
 legend("topleft",
-       legend = c("Vraie densité", "Approximation", "Vraie valeur"),
+       legend = c("Vraie densitÃ©", "Approximation", "Vraie valeur"),
        col    = c("blue", "red","black"),
        lty    = c(1,2, 3),
        lwd    = c(2,2,2),
@@ -158,7 +158,7 @@ plot(TruePDF$x,TruePDF$y, col='blue', lwd=2, type='l', main='SUR',
 lines(ApproxPDF$x, ApproxPDF$y, col='red', lwd=2, lty=2)
 abline(v=12, col='black', lwd=2, lty=3)
 legend("topleft",
-       legend = c("Vraie densité", "Approximation", "Vraie valeur"),
+       legend = c("Vraie densitÃ©", "Approximation", "Vraie valeur"),
        col    = c("blue", "red","black"),
        lty    = c(1,2, 3),
        lwd    = c(2,2,2),

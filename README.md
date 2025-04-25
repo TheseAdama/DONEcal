@@ -1,12 +1,12 @@
 ![Illustration du plan D-optimal](Graphiques/DONEcal.jpg)
 
-# Plan d'expériences numériques pour la calibration de codes de calcul coûteux (à sortie scalaire)
+# Plan d'expériences numériques pour la calibration de codes de calculs coûteux (à sortie scalaire)
 
 Ce dépôt contient des stratégies de planification sequentielle d'experiences numériques pour la calibration d'un code de calculs coûteux à sortie scalaire. Le cadre statistique utilisé est celui de [Kennedy et O'Hagan (2001)](https://www.asc.ohio-state.edu/statistics/comp_exp/jour.club/kennedy01.pdf). 
 
 Les stratégies de planification séquentielle d'expériences numériques reposent sur les trois étapes suivantes :
 
-1. **Construction de l’émulateur initial** : construire un modèle de processus gaussien (GP) à partir d’un plan d’expériences numériques initial et des évaluations correspondantes du code de calcul.
+1. **Construction de l’émulateur initial** : construire un modèle de processus gaussien (GP) à partir d’un plan d’expériences numériques initial et des évaluations correspondantes du code de calculs.
 2. **Sélection séquentielle des expériences numériques** : sélectionner séquentiellement de nouveaux points d’évaluation à l’aide d’une fonction d’acquisition et mettre à jour l’émulateur GP.
 3. **Estimation des paramètres de calibration** : estimer les paramètres de calibration par échantillonnage MCMC de la densité a posteriori approchée.
 
@@ -16,7 +16,7 @@ Les stratégies de planification séquentielle d'expériences numériques repose
 ### Entrées des fonctions
 
 - `M` : taille du plan séquentiel
-- `code` : code de calcul coûteux
+- `code` : code de calculs coûteux
 - `model` : émulateur GP initial
 - `Xobs`, `Yobs` : plan d’expériences physiques et observations physiques
 - `Dx`, `Dtheta` : domaine des variables de contrôle et domaine des paramètres

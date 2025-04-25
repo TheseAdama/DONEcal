@@ -45,7 +45,7 @@ rprior <- function(N, Dtheta){
   return(o)
 }
 
-# Vraie densité a posteriori
+# Vraie densitÃ© a posteriori
 logp <- function(theta,Yobs, Xobs, code=fcode, sigeps, Dtheta){
   if(all(theta >= Dtheta[, 1] & theta <= Dtheta[, 2])){
     n = nrow(Xobs)
@@ -80,7 +80,7 @@ contour(TruePDF,
 dev.off()
 
 
-# Planification d'expériences numeriques : approche KL 
+# Planification d'expÃ©riences numeriques : approche KL 
 R = KLdone(M=25, code=fcode, model, Xobs, Yobs, Dx, Dtheta, sigeps=sigeps, 
            ctype="VAR", rprior, dprior, Lmc=200, Lopt=200, Lmcmc=1e4)
 
@@ -94,7 +94,7 @@ image(ApproxPDF,xlim=c(1.8,2.4), ylim=c(2.4,3.4),
       col  = viridis(1000),
       xlab = expression(theta[1]),
       ylab = expression(theta[2]),
-      main = "PDF approchée")
+      main = "PDF approchÃ©e")
 contour(ApproxPDF,
         add    = TRUE,
         drawlabels = FALSE,
@@ -119,7 +119,7 @@ image(ApproxPDF,xlim=c(1.8,2.4), ylim=c(2.4,3.4),
       col  = viridis(1000),
       xlab = expression(theta[1]),
       ylab = expression(theta[2]),
-      main = "PDF approchée")
+      main = "PDF approchÃ©e")
 contour(ApproxPDF,
         add    = TRUE,
         drawlabels = FALSE,
@@ -134,12 +134,3 @@ dev.off()
 # par(mfrow=c(1,2))
 # plot(1:nrow(Chain), Chain[,1], main="theta1", col='blue', type='l', lwd=2)
 # plot(1:nrow(Chain), Chain[,2], main="theta2", col='red', type='l', lwd=2)
-# 
-# par(mfrow=c(1,2))
-# plot(density(Chain[,1], bw=0.05, from=0,to=5), main="theta1", col='blue', type='l', lwd=2)
-# plot(density(Chain[,2], bw=0.05,from=0,to=5), main="theta2", col='red', type='l', lwd=2)
-# 
-# d1 = density(Chain[,1], bw=0.05,from=0,to=5)
-# d2 = density(Chain[,2], bw=0.05,from=0,to=5)
-# thetamap = c(d1$x[which.max(d1$y)],d2$x[which.max(d2$y)])
-# thetamap

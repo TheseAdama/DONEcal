@@ -38,16 +38,6 @@ Les stratégies de planification séquentielle d'expériences numériques repose
 - `thetamap` : moyenne a posteriori des paramètres
 
 ## Fonctions d'acquisition 
-Voici un **bloc complet en Markdown** au format `.Rmd`, **soigneusement formaté** pour que tu puisses le **copier-coller directement dans RStudio** et générer un document HTML proprement avec le bouton **"Knit"** :
-
-```markdown
----
-title: "Fonctions de Planification Séquentielle"
-output: html_document
----
-
-## Fonctions de planification séquentielle
-
 ### Divergence de Kullback-Leibler
 
 ```{r}

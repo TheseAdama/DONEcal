@@ -71,7 +71,7 @@ git clone https://github.com/TheseAdama/DONEcal.git
 ```
 Vous pouvez également télécharger directement le fichier ZIP depuis GitHub.
 
-## Package R : 
+## Packages R : 
 Exécutez le code suivant dans R pour installer les packages nécessaires : 
 
  ```r
